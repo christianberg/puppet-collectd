@@ -1,0 +1,19 @@
+LoadPlugin syslog
+LoadPlugin cpu
+LoadPlugin interface
+LoadPlugin load
+LoadPlugin memory
+<% if @graphite_server %>
+LoadPlugin write_graphite
+<Plugin write_graphite>
+  <Carbon>
+    Host "<%= @graphite_server %>"
+    Port "<%= @graphite_port %>"
+    Prefix ""
+    Postfix ".collectd"
+    StoreRates false
+    AlwaysAppendDS false
+    EscapeCharacter "_"
+  </Carbon>
+</Plugin>
+<% end %>
